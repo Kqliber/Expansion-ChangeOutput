@@ -25,8 +25,8 @@ class ChangeOutputExpansion : PlaceholderExpansion()
 
     override fun onRequest(player: OfflinePlayer?, params: String): String?
     {
-        val (option, input, checkAgainst, outputIfTrue, outputIfFalse) = params.split(',')
-            .map { PlaceholderAPI.setBracketPlaceholders(player, it) }
+        val (option, input, checkAgainst, outputIfTrue, outputIfFalse) = PlaceholderAPI.setBracketPlaceholders(player, params)
+            .split('_')
             .takeIf { it.size >= 5 } ?: return null
 
         val inputNum = input.toDoubleOrNull() ?: 0.0
