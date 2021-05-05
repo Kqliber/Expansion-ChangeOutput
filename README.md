@@ -3,7 +3,7 @@ Change outputs of a placeholder on certain conditions
 
 ## Syntax
 
-### `%changeoutput_<options>_<input>_<matcher>_<output-if-matched>_<output-if-not-matched>%`
+#### `%changeoutput_<options>_<input>_<matcher>_<output-if-matched>_<output-if-not-matched>%`
 
 * \<options>
   * equals - match the input exactly
