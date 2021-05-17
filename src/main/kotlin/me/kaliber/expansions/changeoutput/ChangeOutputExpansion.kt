@@ -25,27 +25,53 @@ class ChangeOutputExpansion : PlaceholderExpansion()
 
     override fun onRequest(player: OfflinePlayer?, params: String): String?
     {
-        val (option, input, checkAgainst, outputIfTrue, outputIfFalse) = PlaceholderAPI.setBracketPlaceholders(player, params)
+        val (opts, input, checkAgainst, outputIfTrue, outputIfFalse) = PlaceholderAPI.setBracketPlaceholders(player, params)
             .split('_')
             .takeIf { it.size >= 5 } ?: return null
+
+        val options = opts.lowercase().split(",")
+        if (options.size > 3) return null
 
         val inputNum = input.toDoubleOrNull() ?: 0.0
         val checkNum = checkAgainst.toDoubleOrNull() ?: 0.0
 
-        return when (option.lowercase())
+        if (options.size == 1)
         {
-            "ignorecase" -> if (input.equals(checkAgainst, true)) outputIfTrue else outputIfFalse
-            "ignorecolor" -> if (ChatColor.stripColor(input) == checkAgainst) outputIfTrue else outputIfFalse
-            "contains" -> if (checkAgainst in input) outputIfTrue else outputIfFalse
+            return when (options[0])
+            {
+                "ignorecase" -> if (input.equals(checkAgainst, true)) outputIfTrue else outputIfFalse
+                "ignorecolor" -> if (ChatColor.stripColor(input) == checkAgainst) outputIfTrue else outputIfFalse
+                "contains" -> if (checkAgainst in input) outputIfTrue else outputIfFalse
 
-            ">" -> if (inputNum > checkNum) outputIfTrue else outputIfFalse
-            ">=" -> if (inputNum >= checkNum) outputIfTrue else outputIfFalse
-            "<" -> if (inputNum < checkNum) outputIfTrue else outputIfFalse
-            "<=" -> if (inputNum <= checkNum) outputIfTrue else outputIfFalse
+                ">" -> if (inputNum > checkNum) outputIfTrue else outputIfFalse
+                ">=" -> if (inputNum >= checkNum) outputIfTrue else outputIfFalse
+                "<" -> if (inputNum < checkNum) outputIfTrue else outputIfFalse
+                "<=" -> if (inputNum <= checkNum) outputIfTrue else outputIfFalse
 
-            else -> if (input == checkAgainst) outputIfTrue else outputIfFalse
+                else -> if (input == checkAgainst) outputIfTrue else outputIfFalse
+            }
         }
 
-    }
+        var newInput = input
+        var newCheckAgainst = checkAgainst
 
+        if (options.contains("ignorecase"))
+        {
+            newInput = newInput.lowercase()
+            newCheckAgainst = newCheckAgainst.lowercase()
+        }
+
+        if (options.contains("ignorecolor"))
+        {
+            newInput = ChatColor.stripColor(newInput) ?: ""
+            newCheckAgainst = ChatColor.stripColor(newCheckAgainst) ?: ""
+        }
+
+        if (options.contains("contains"))
+        {
+            return if (newCheckAgainst !in newInput) outputIfFalse else outputIfTrue
+        }
+
+        return if (newInput == newCheckAgainst) outputIfTrue else outputIfFalse
+    }
 }
