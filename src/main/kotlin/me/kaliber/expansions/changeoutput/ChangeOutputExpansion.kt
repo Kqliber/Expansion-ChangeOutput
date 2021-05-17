@@ -20,7 +20,7 @@ class ChangeOutputExpansion : PlaceholderExpansion()
 
     override fun getVersion(): String
     {
-        return "1.0"
+        return "1.0.1"
     }
 
     override fun onRequest(player: OfflinePlayer?, params: String): String?
@@ -37,7 +37,7 @@ class ChangeOutputExpansion : PlaceholderExpansion()
 
         if (options.size == 1)
         {
-            return when (options[0])
+            return when (options[0].lowercase())
             {
                 "ignorecase" -> if (input.equals(checkAgainst, true)) outputIfTrue else outputIfFalse
                 "ignorecolor" -> if (ChatColor.stripColor(input) == checkAgainst) outputIfTrue else outputIfFalse
@@ -69,7 +69,7 @@ class ChangeOutputExpansion : PlaceholderExpansion()
 
         if (options.contains("contains"))
         {
-            return if (newCheckAgainst !in newInput) outputIfFalse else outputIfTrue
+            return if (newCheckAgainst in newInput) outputIfTrue else outputIfFalse
         }
 
         return if (newInput == newCheckAgainst) outputIfTrue else outputIfFalse
