@@ -8,6 +8,8 @@ import org.bukkit.ChatColor
 class ChangeOutputExpansion : PlaceholderExpansion()
 {
 
+    private val separator = Regex("(?<!\\\\)_")
+
     override fun getIdentifier(): String
     {
         return "changeoutput"
@@ -20,13 +22,14 @@ class ChangeOutputExpansion : PlaceholderExpansion()
 
     override fun getVersion(): String
     {
-        return "1.0.1"
+        return "1.1"
     }
 
     override fun onRequest(player: OfflinePlayer?, params: String): String?
     {
         val (opts, input, checkAgainst, outputIfTrue, outputIfFalse) = PlaceholderAPI.setBracketPlaceholders(player, params)
-            .split('_')
+            .split(separator)
+            .map { it.replace("\\_", "_") }
             .takeIf { it.size >= 5 } ?: return null
 
         val options = opts.lowercase().split(",")
