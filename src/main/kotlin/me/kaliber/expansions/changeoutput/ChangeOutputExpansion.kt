@@ -47,11 +47,6 @@ class ChangeOutputExpansion : PlaceholderExpansion()
         val matcher = parsed.substringAfter(MATCHER_MATCHER).substringBefore(IFMATCH_MATCHER)
         val outputIfTrue = parsed.substringAfter(IFMATCH_MATCHER).substringBefore(ELSE_MATCHER)
         val outputIfFalse = parsed.substringAfter(ELSE_MATCHER)
-        println(input)
-        println(matcher)
-        println(outputIfTrue)
-        println(outputIfFalse)
-        println("contains: ${matcher in input}")
 
         val inputNum = input.toDoubleOrNull() ?: 0.0
         val checkNum = matcher.toDoubleOrNull() ?: 0.0
