@@ -3,7 +3,7 @@ Change outputs of a placeholder on certain conditions
 
 ## Syntax
 
-#### `%changeoutput_<options>_<input>_<matcher>_<output-if-matched>_<output-if-not-matched>%`
+#### `%changeoutput_<options>_input:<input>_matcher:<matcher>_ifmatch:<output-if-matched>_else:<output-if-not-matched>%`
 
 * \<options>
   * equals - match the input exactly
@@ -23,27 +23,27 @@ Change outputs of a placeholder on certain conditions
 
 ## Examples
 
-#### `%changeoutput_equals_replace_replace_with this_instead of this%`
+#### `%changeoutput_equals_input:replace_matcher:replace_ifmatch:with this_else:instead of this%`
 - Returns `with this` because `replace` matches `replace`
 
-#### `%changeoutput_ignorecase_Replace_replace_case ignored_instead of this%`
+#### `%changeoutput_ignorecase_input:Replace_matcher:replace_ifmatch:case ignored_else:instead of this%`
 - Returns `case ignored` because replace and Replace are the same, ignoring their cases
 
-#### `%changeoutput_ignorecolor_{player_displayname}_Kqliber_Kaliber_Steve%`
+#### `%changeoutput_ignorecolor_input:{player_displayname}_matcher:Kqliber_ifmatch:Kaliber_else:Steve%`
 - Let `{player_displayname}` = &4Kqliber
 - Returns `Kaliber` because this option will ignore colours
 
-#### `%changeoutput_contains_Steve_Ste_contains_does not contain%`
+#### `%changeoutput_contains_input:Steve_matcher:Ste_ifmatch:contains_else:does not contain%`
 - Returns `contains` because Ste is in Steve
 
-#### `%changeoutput_>_10_1_larger_smaller%`
+#### `%changeoutput_>_input:10_matcher:1_ifmatch:larger_else:smaller%`
 - Returns `larger`
 
-#### `%changeoutput_>=_10_10_larger_smaller%`
+#### `%changeoutput_>=_input:10matcher:_10_ifmatch:larger_else:smaller%`
 - Returns `larger`
 
-#### `%changeoutput_<_1_10_smaller_larger%`
+#### `%changeoutput_<_input:1_matcher:10_ifmatch:smaller_else:larger%`
 - Returns `larger`
 
-### `%changeoutput_<=_10_10_smaller_larger%`
+### `%changeoutput_<=_input:10_matcher:10_ifmatch:smaller_else:larger%`
 - Returns `smaller`
