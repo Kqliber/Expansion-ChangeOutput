@@ -57,10 +57,7 @@ class ChangeOutputExpansion : PlaceholderExpansion()
             {
                 "ignorecase" -> if (input.equals(matcher, true)) outputIfTrue else outputIfFalse
                 "ignorecolor" -> if (ChatColor.stripColor(input) == matcher) outputIfTrue else outputIfFalse
-                "contains" -> {
-                    println("size 1")
-                    if (matcher in input) outputIfTrue else outputIfFalse
-                }
+                "contains" -> if (matcher in input) outputIfTrue else outputIfFalse
 
                 ">" -> if (inputNum > checkNum) outputIfTrue else outputIfFalse
                 ">=" -> if (inputNum >= checkNum) outputIfTrue else outputIfFalse
