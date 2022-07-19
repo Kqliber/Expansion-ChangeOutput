@@ -25,7 +25,7 @@ class ChangeOutputExpansion : PlaceholderExpansion()
 
     override fun getVersion(): String
     {
-        return "1.2"
+        return "1.2.2"
     }
 
     override fun onRequest(player: OfflinePlayer?, params: String): String?
